@@ -1,0 +1,8 @@
+const routes = require("express").Router()
+const multer = require("multer")
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage})
+const freesessionController = require("../apis/freesession/freesessionController")
+const paidsessionController = require("../apis/paidsession/paidsessionController")
+const userController = require("../apis/users/usersController")
+const skillController = require("../apis/skill/skillController")
