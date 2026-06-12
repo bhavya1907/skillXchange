@@ -278,7 +278,6 @@ module.exports = {
     getall,
     getsingle,
     update,
-    changestatus,
     deleteone
 }
 
