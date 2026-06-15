@@ -29,7 +29,7 @@ const add = (req, res) => {
 
                 if (sessiondata == null) {
 
-                    let sessionObj = new freeSessionModel()
+                    let sessionObj = new freesessionModel()
                     sessionObj.title = req.body.title
                     sessionObj.addedBy = req.body.addedBy
                     sessionObj.technologyId = req.body.technologyId
@@ -291,4 +291,3 @@ module.exports = {
     update,
     deleteone
 }
-

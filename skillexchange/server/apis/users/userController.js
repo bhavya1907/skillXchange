@@ -2,6 +2,72 @@ const userModel = require("./userModel")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const key = "123#@19"
+
+const register = (req,res)=>{
+        var errMsgs = []
+        if(!req.body.name){
+                errMsgs.push("name is required!!!")
+        }
+        if(!req.body.email){
+                errMsgs.push("email is required!!!")
+        }
+        if(!req.body.password){
+                errMsgs.push("password is required!!!")
+        }
+        
+        if(errMsgs.length>0){
+                res.send({
+                    status:422,
+                    success:false,
+                    message:errMsgs
+                })
+        }
+        else{
+            userModel.findOne({email:req.body.email})
+            .then((userdata)=>{
+                if(userdata != null){
+                    res.send({
+                        status:422,
+                        success:false,
+                        message:"account already exists with this email!!"
+                    })
+                }
+                else{
+                    let userObj = new userModel()
+                    userObj.name = req.body.name
+                    userObj.email = req.body.email
+                    userObj.password = bcrypt.hashSync(req.body.password,10)
+                    userObj.userType = req.body.userType || 2
+                    userObj.address = req.body.address || ""
+                    userObj.skills = req.body.skills || undefined
+                    userObj.save()
+                    .then((insertedData)=>{
+                        res.send({
+                            status:201,
+                            success:true,
+                            message:"User registered successfully!!",
+                            data:insertedData
+                        })
+                    })
+                    .catch((err)=>{
+                        res.send({
+                            status:500,
+                            success:false,
+                            message:"Something went wrong!!"
+                        })
+                    })
+                }
+            })
+            .catch((err)=>{
+                res.send({
+                    status:500,
+                    success:false,
+                    message:"Something went wrong!!"
+                })
+            })
+        }
+}
+
 const login = (req,res)=>{
         var errMsgs = []
         if(!req.body.email){
@@ -74,6 +140,81 @@ const login = (req,res)=>{
                 })
             })
         }
+}
+
+const profile = (req,res)=>{
+    userModel.findOne({_id:req.decoded._id}).populate("skills")
+    .then((userdata)=>{
+        if(userdata == null){
+            res.send({
+                status:404,
+                success:false,
+                message:"data not found!!"
+            })
+        }
+        else{
+            res.send({
+                status:200,
+                success:true,
+                message:"Profile loaded!!",
+                data:userdata
+            })
+        }
+    })
+    .catch((err)=>{
+        res.send({
+            status:500,
+            success:false,
+            message:"Something went wrong!!"
+        })
+    })
+}
+
+const updateProfile = (req,res)=>{
+    userModel.findOne({_id:req.decoded._id})
+    .then((userdata)=>{
+        if(userdata == null){
+            res.send({
+                status:404,
+                success:false,
+                message:"data not found!!"
+            })
+        }
+        else{
+            if(req.body.name){
+                userdata.name = req.body.name
+            }
+            if(req.body.address){
+                userdata.address = req.body.address
+            }
+            if(req.body.skills){
+                userdata.skills = req.body.skills
+            }
+            userdata.save()
+            .then((updatedData)=>{
+                res.send({
+                    status:200,
+                    success:true,
+                    message:"Profile updated!!",
+                    data:updatedData
+                })
+            })
+            .catch((err)=>{
+                res.send({
+                    status:500,
+                    success:false,
+                    message:"Something went wrong!!"
+                })
+            })
+        }
+    })
+    .catch((err)=>{
+        res.send({
+            status:500,
+            success:false,
+            message:"Something went wrong!!"
+        })
+    })
 }
 
 const changePassword = (req,res)=>{
@@ -163,4 +304,4 @@ const changePassword = (req,res)=>{
             }
         }
 }
-module.exports = {login,changePassword}
+module.exports = {register,login,changePassword,profile,updateProfile}

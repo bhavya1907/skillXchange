@@ -46,7 +46,7 @@ const add = (req,res) =>{
         }
 }
 const getall = (req, res) => {
-    requestModel.find()
+    requestsModel.find(req.body)
         .populate("userId")
         .populate("sessionId")
         .then((requests) => {
@@ -65,8 +65,15 @@ const getall = (req, res) => {
         });
 };
 const update = (req, res) => {
+    if (!req.body._id) {
+        return res.send({
+            status: 422,
+            success: false,
+            message: "_id is required!!"
+        });
+    }
 
-    requestModel.findById(req.params.id)
+    requestsModel.findById(req.body._id)
         .then((request) => {
             if (!request) {
                 return res.send({

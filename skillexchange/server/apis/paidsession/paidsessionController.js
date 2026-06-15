@@ -120,7 +120,7 @@ const getsingle = (req, res) => {
         })
     }
     else {
-        paidSessionModel.findOne({ _id: req.body._id })
+        paidsessionModel.findOne({ _id: req.body._id })
             .populate("addedBy")
             .populate("technologyId")
             .then((sessiondata) => {
@@ -280,4 +280,3 @@ module.exports = {
     update,
     deleteone
 }
-

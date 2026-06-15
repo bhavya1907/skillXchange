@@ -19,7 +19,7 @@ const add = (req,res)=>{
         skillModel.findOne({name:req.body.name})
         .then((skilldata)=>{
             console.log("skill data", skilldata);
-            if (skilldata== null){
+if (skilldata== null){
                 let skillobj = new skillModel()
                 skillobj.name = req.body.name
                 skillobj.description = req.body.description
@@ -43,6 +43,13 @@ const add = (req,res)=>{
                 })
 
 } 
+            else{
+                res.send({
+                    status:422,
+                    success:false,
+                    message:"Skill already exists!!"
+                })
+            }
                 
         })
         .catch((err)=>{
@@ -77,14 +84,31 @@ const getall = (req,res)=>{
 }
 
 const getsingle =(req,res)=>{
-    skill.findOne({_id:req.body._id})
-    .then((skilldata)=>{
-        res.send({
-            status:200,
-            success:true,
-            message:"Single record loaded!!",
-            data:skilldata
+    if(!req.body._id){
+        return res.send({
+            status:422,
+            success:false,
+            message:"_id is required!!"
         })
+    }
+
+    skillModel.findOne({_id:req.body._id})
+    .then((skilldata)=>{
+        if(skilldata == null){
+            res.send({
+                status:404,
+                success:false,
+                message:"Skill not found!!"
+            })
+        }
+        else{
+            res.send({
+                status:200,
+                success:true,
+                message:"Single record loaded!!",
+                data:skilldata
+            })
+        }
     })
     .catch((err)=>{
         res.send({

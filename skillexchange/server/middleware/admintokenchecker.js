@@ -2,6 +2,9 @@ const jwt = require("jsonwebtoken")
 const key = "123#@19"
 module.exports=(req,res,next)=>{
     var token = req.headers["authorization"]
+    if(token && token.startsWith("Bearer ")){
+        token = token.slice(7)
+    }
     // console.log("token is ",token);
     
     if(!token){
