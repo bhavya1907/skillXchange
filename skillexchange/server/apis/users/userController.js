@@ -1,7 +1,7 @@
 const userModel = require("./userModel")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const key = "123#@19"
+const key = process.env.JWT_SECRET || "development-only-change-me"
 
 const register = (req,res)=>{
         var errMsgs = []
@@ -10,6 +10,12 @@ const register = (req,res)=>{
         }
         if(!req.body.email){
                 errMsgs.push("email is required!!!")
+        }
+        else if(!/^\S+@\S+\.\S+$/.test(req.body.email)){
+                errMsgs.push("a valid email is required!!!")
+        }
+        if(req.body.password && req.body.password.length < 8){
+                errMsgs.push("password must be at least 8 characters!!!")
         }
         if(!req.body.password){
                 errMsgs.push("password is required!!!")

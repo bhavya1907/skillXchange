@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SkillXchange — practical mentorship for ambitious builders." />
+    <title>SkillXchange — Learn from people doing the work</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="notice"><span class="dot"></span> New: curated mock interviews are now live <a href="#mentors">Explore sessions →</a></div>
+    <header class="nav wrap">
+      <a class="brand" href="#top" aria-label="SkillXchange home">skill<span>×</span>change</a>
+      <nav aria-label="Main navigation"><a href="#how">How it works</a><a href="#mentors">Find a mentor</a><a href="#stories">Stories</a></nav>
+      <div class="nav-actions"><button class="text-btn" id="loginBtn">Log in</button><button class="dark-btn" id="joinBtn">Join the community <span>↗</span></button></div>
+    </header>
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow">A BETTER WAY TO LEVEL UP</p>
+          <h1>Learn from people <em>doing</em> the work.</h1>
+          <p class="lede">Personal, practical sessions with experienced builders. Bring your ambition; leave with a plan.</p>
+          <div class="hero-actions"><a href="#mentors" class="lime-btn">Find your mentor <span>→</span></a><button class="play-btn" id="storyBtn"><i>▶</i> See how it works</button></div>
+          <div class="proof"><div class="avatars"><b>AM</b><b>JT</b><b>SK</b><b>+2k</b></div><p><strong>2,400+ learners</strong><br>building with more confidence</p></div>
+        </div>
+        <div class="hero-art" aria-label="Mentor session illustration">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="note note-top">“The roadmap made it click.”<small>— Ayesha, frontend learner</small></div>
+          <div class="mentor-card"><div class="portrait portrait-main">MK</div><div><span>DESIGN ENGINEER</span><h3>Maya Khanna</h3><p>Turning ideas into products</p></div><div class="live"><b></b> LIVE</div></div>
+          <div class="skill-pill pill-react">⚛ React</div><div class="skill-pill pill-data">⌘ Product</div><div class="skill-pill pill-ai">✦ AI</div>
+        </div>
+      </section>
+      <section class="ticker" aria-label="Topics"><div>PRODUCT DESIGN <i>✦</i> SOFTWARE ENGINEERING <i>✦</i> CAREER STRATEGY <i>✦</i> DATA &amp; AI <i>✦</i> PRODUCT DESIGN <i>✦</i></div></section>
+      <section class="section wrap" id="mentors">
+        <div class="section-head"><div><p class="eyebrow">MEET YOUR PEOPLE</p><h2>Mentorship that meets you <em>where you are.</em></h2></div><a href="#mentors" class="arrow-link">Browse all mentors <span>→</span></a></div>
+        <div class="filters"><label class="search"><span>⌕</span><input id="searchInput" aria-label="Search mentors" placeholder="Search by skill or topic" /></label><div class="chips" id="chips"><button class="chip active" data-filter="All">All</button><button class="chip" data-filter="Engineering">Engineering</button><button class="chip" data-filter="Design">Design</button><button class="chip" data-filter="Product">Product</button><button class="chip" data-filter="Data & AI">Data & AI</button></div></div>
+        <div class="mentor-grid" id="mentorGrid"></div>
+      </section>
+      <section class="how-section" id="how"><div class="wrap"><p class="eyebrow">SIMPLE BY DESIGN</p><h2>A little guidance changes <em>everything.</em></h2><div class="steps"><article><span>01</span><div class="step-icon">⌕</div><h3>Find your fit</h3><p>Browse people who’ve already navigated the path you’re on.</p></article><article><span>02</span><div class="step-icon">◫</div><h3>Book a session</h3><p>Choose a time, share your goals, and show up ready to learn.</p></article><article><span>03</span><div class="step-icon">↗</div><h3>Make real progress</h3><p>Leave with clarity, momentum, and someone in your corner.</p></article></div></div></section>
+      <section class="story wrap" id="stories"><div class="quote-mark">“</div><blockquote>My mentor didn’t just review my portfolio. She helped me see the kind of designer I could become.</blockquote><div class="story-author"><div class="portrait mini">TR</div><div><strong>Tara Rao</strong><span>Product Designer at Northstar</span></div><div class="story-nav"><button aria-label="Previous story">←</button><button aria-label="Next story">→</button></div></div></section>
+      <section class="cta wrap"><div><p class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p><h2>Ready to build<br>what’s <em>next?</em></h2></div><button class="lime-btn" id="ctaJoin">Create your free account <span>→</span></button></section>
+    </main>
+    <footer><div class="wrap footer-inner"><a class="brand" href="#top">skill<span>×</span>change</a><p>Practical guidance for the curious.</p><small>© 2026 SkillXchange. Built with intent.</small></div></footer>
+    <dialog id="authModal"><button class="close" aria-label="Close">×</button><div id="authContent"></div></dialog>
+    <dialog id="bookingModal"><button class="close" aria-label="Close">×</button><div id="bookingContent"></div></dialog>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

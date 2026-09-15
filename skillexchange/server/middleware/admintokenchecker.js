@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const key = "123#@19"
+const key = process.env.JWT_SECRET || "development-only-change-me"
 module.exports=(req,res,next)=>{
     var token = req.headers["authorization"]
     if(token && token.startsWith("Bearer ")){

@@ -8,6 +8,7 @@ const seeder = require("./server/config/seeder")
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(express.static("public"))
 
 const apiroutes = require("./server/routes/apiroutes")
 const adminroutes = require("./server/routes/adminroutes")
@@ -16,12 +17,15 @@ app.use("/apis", apiroutes)
 app.use("/admin", adminroutes)
 
 app.get("/", (req, res) => {
-    res.send({
-        status: 200,
-        success: true,
-        message: "SkillXchange server is running"
-    })
+    res.sendFile(__dirname + "/public/index.html")
 })
+
+app.get("/health", (req, res) => res.status(200).json({
+    status: 200,
+    success: true,
+    service: "SkillXchange API",
+    timestamp: new Date().toISOString()
+}))
 
 db.then((isConnected) => {
     if(isConnected){

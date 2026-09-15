@@ -1,7 +1,11 @@
-const mongoose = require("mongoose")
-const mongoUrl = process.env.MONGO_URL || "mongodb+srv://bhavyavermasv:GSUiNk6D3gjdWo4Y@bhavyacls.cuc2lov.mongodb.net/skillexchange"
+const mongoUrl = process.env.MONGO_URL
 
-module.exports = mongoose.connect(mongoUrl, { serverSelectionTimeoutMS: 5000 })
+if (!mongoUrl) {
+    console.warn("MONGO_URL is not configured. API data features will be unavailable until it is set.")
+    module.exports = Promise.resolve(false)
+} else {
+    const mongoose = require("mongoose")
+    module.exports = mongoose.connect(mongoUrl, { serverSelectionTimeoutMS: 5000 })
     .then(() => {
         console.log("database connected!!")
         return true
@@ -10,3 +14,4 @@ module.exports = mongoose.connect(mongoUrl, { serverSelectionTimeoutMS: 5000 })
         console.log("database not connected:", err.message)
         return false
     })
+}

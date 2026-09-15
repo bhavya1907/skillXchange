@@ -4,12 +4,6 @@ const add = (req,res) =>{
     if(!req.body.title){
         errMsgs.push("title is required!!")
     }
-    if(!req.body.sessionId){
-        errMsgs.push("sessionId is required!!")
-    }
-    if(!req.body.userId){
-        errMsgs.push("userId is required!!")
-    }
    if (errMsgs.length > 0) {
         res.send({
             status: 422,
@@ -20,8 +14,10 @@ const add = (req,res) =>{
     else {
         let requestObj = new requestsModel({
             title: req.body.title,
-            sessionId: req.body.sessionId,
-            userId: req.body.userId,
+            // The authenticated identity is the source of truth.  A session can
+            // be attached later by an admin when this is a custom mentorship ask.
+            sessionId: req.body.sessionId || undefined,
+            userId: req.decoded._id,
             message: req.body.message || "",
             paymentType: req.body.paymentType || "online",
             paymentStatus: "unpaid",
